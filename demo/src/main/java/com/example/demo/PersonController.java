@@ -82,23 +82,23 @@ public class PersonController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public Map<String,Object> process(@Valid @RequestBody PersonModel model, BindingResult result){
+    public PersonModel process(@Valid @RequestBody PersonModel model, BindingResult result){
 
-        Map<String, Object> fieldError = new HashMap<>();
 
         List<FieldError> lists = result.getFieldErrors();
 
+        StringBuilder sb = new StringBuilder(5);
+
         if ( lists.size() != 0) {
             for (FieldError f1 : lists) {
-                fieldError.put(f1.getField(), f1.getDefaultMessage());
+                sb.append(f1.getDefaultMessage());
             }
+            throw new ResourceError(sb.toString());
         }
         else{
-            personRepository.save(model);
+            return personRepository.save(model);
         }
 
-
-        return fieldError;
     }
 
 

@@ -34,6 +34,14 @@ public class PersonModel {
 
     public PersonModel(){}
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public PersonModel(String name, String email){
         this.name = name;
         this.email = email;
